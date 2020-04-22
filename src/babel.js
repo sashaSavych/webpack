@@ -9,3 +9,10 @@ class Util {
 }
 
 console.log('Util id: ', Util.id);
+
+const unused = 42;
+console.log(unused);
+
+import('lodash').then(_ => {
+   console.log('Lodash: ', _.random(0, 42, true));
+});
