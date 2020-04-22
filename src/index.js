@@ -1,4 +1,6 @@
 import * as $ from 'jquery';
+import './babel';
+
 import Post from "@models/Post";
 
 import './styles/styles.css';

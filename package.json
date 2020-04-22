@@ -9,9 +9,14 @@
     "build": "cross-env NODE_ENV=production npx webpack --mode production --config webpack.config.js",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"
   },
+  "browserslist": "> 0.25%, not dead",
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^7.0.2",
@@ -34,6 +39,7 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "jquery": "^3.5.0",
     "normalize.css": "^8.0.1"
   }
