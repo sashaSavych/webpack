@@ -30,19 +30,35 @@ const getOptimisation = () => {
 const getFileName = (ext) => isDevMode ? `[name].${ext}` : `[name].[hash].${ext}`;
 
 const getCssLoaders = (additionalLoader) => {
-  const loaders = [{
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-          hmr: isDevMode,
-          reloadAll: true
-      }
-  }, 'css-loader'];
+    const loaders = [{
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+            hmr: isDevMode,
+            reloadAll: true
+        }
+    }, 'css-loader'];
 
-  if (additionalLoader) {
-      loaders.push(additionalLoader);
-  }
+    if (additionalLoader) {
+        loaders.push(additionalLoader);
+    }
 
-  return loaders;
+    return loaders;
+};
+
+const getBabelLoaders = (additionalLoader) => {
+    const loaders = {
+        loader: "babel-loader",
+        options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties']
+        }
+    };
+
+    if (additionalLoader) {
+        loaders.options.presets.push(additionalLoader);
+    }
+
+    return loaders;
 };
 
 module.exports = {
@@ -53,7 +69,8 @@ module.exports = {
             '@babel/polyfill',
             './index.js'
         ],
-        analytics: './analytics.js'
+        analytics: './analytics.js',
+        analyticsTyped: './analyticsTyped.ts'
     },
     output: {
         filename: getFileName('js'),
@@ -122,16 +139,20 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
+                loader: getBabelLoaders()
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
                 loader: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: [
-                            '@babel/preset-env'
-                        ],
-                        plugins: [
-                            '@babel/plugin-proposal-class-properties'
-                        ]
-                    }
+                    loader: getBabelLoaders('@babel/preset-typescript')
+                }
+            },
+            {
+                test: /\.jsx$/,
+                exclude: /node_modules/,
+                loader: {
+                    loader: getBabelLoaders('@babel/preset-react')
                 }
             }
         ]
