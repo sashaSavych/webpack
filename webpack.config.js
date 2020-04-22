@@ -144,16 +144,12 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
-                loader: {
-                    loader: getBabelLoaders('@babel/preset-typescript')
-                }
+                loader: getBabelLoaders('@babel/preset-typescript')
             },
             {
                 test: /\.jsx$/,
                 exclude: /node_modules/,
-                loader: {
-                    loader: getBabelLoaders('@babel/preset-react')
-                }
+                loader: getBabelLoaders('@babel/preset-react')
             }
         ]
     }
